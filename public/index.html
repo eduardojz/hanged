@@ -1,24 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>hanged</title>
-    <link rel="stylesheet" href="../../assets/styles/index.css">
-</head>
-<body>
+    <link rel="stylesheet" href="../../assets/styles/index.css" />
+  </head>
+  <body>
     <div id="mainContainer">
-        <div id="hanged">
-            <div id="dummy">
-
-            </div>
-            <div id="container">
-                <div id="counter">
-    
-                </div>
-            </div>
+      <div id="hanged">
+        <div id="dummy"></div>
+        <div id="container">
+          <div id="counter">0</div>
         </div>
+      </div>
+      <!--xx-->
+      <div class="container">
+        <button onclick="window.modal1.showModal();">
+          Abrir ventana modal
+        </button>
+        <dialog id="modal1">
+            <form>
+                <fieldset>
+                  <legend>End Game</legend>
+              
+                  <label for="name">Name</label>
+                  <input type="input" id="name"  placeholder="Digit your name" />
+                </fieldset>
+              </form>
+          <button onclick="window.modal1.close();">Cerrar</button>
+        </dialog>
+      </div>
+      <!--xx-->
     </div>
     <script type="module" src="../src/index.js"></script>
-</body>
+  </body>
 </html>

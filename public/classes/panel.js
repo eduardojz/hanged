@@ -1,4 +1,3 @@
-
 class panel{
     constructor(word){
         if (word=="") {
