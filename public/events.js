@@ -1,35 +1,22 @@
 import result from "../src/result.js";
-const word = localStorage.getItem("word");
+import hangManGame from "../src/hangManGame.js";
+const hang=new hangManGame();
 function clickEvent(e) {
-  let validate=verify(e.target.textContent);
-  let resultC =new result(validate);
+  const word = localStorage.getItem("word");
+  let validate=hang.checkletter(e.target.textContent,word);//valida si completo la palabra
+  let resultC =new result(validate,word);
   e.target.disabled = true;
   if (word.includes(e.target.textContent)) {
     e.target.className = "correct";
     if (validate) {
-        console.log(resultC.showResult(word));
+       console.log(resultC.showResult(true))
     }
   } else {
     e.target.className = "incorrect";
     resultC.errorCounter();
-    console.log(resultC.incorrects);
+    if (resultC.incorrects>=7) {
+      console.log(resultC.showResult(false))
+    }
   }
-}
-//
-function verify(targetText){
-    let validate=false;
-    const divs = document.querySelectorAll("#answers div");
-    for (let i = 0; i < word.length; i++) {
-      if (word[i] === targetText) {
-        divs[i].textContent = targetText;
-      }
-    }
-    for (let i = 0; i < divs.length; i++) {
-        divs[i].textContent!=="_" ? validate=true : validate=false;
-        if (!validate) {
-            break;
-        }   
-    }
-    return validate;
 }
 export default clickEvent;

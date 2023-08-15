@@ -1,10 +1,9 @@
 class panel{
     constructor(word){
-        if (word=="") {
+        if (word==="") {
             throw Error ("Invalid Word")
         }
         this.word=word;
-        localStorage.setItem("word",word)
     }
     createPanel(){
         let count=0;
@@ -17,11 +16,6 @@ class panel{
             count++;
         }
         return div;
-    }
-    encryptWord(){
-        let newWord=()=>{
-            return this.word.map()
-        }
     }
 }
 export default panel;

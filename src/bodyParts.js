@@ -11,7 +11,7 @@ class bodyParts {
       path + "7.png",
     ];
   }
-  showImg(index=5) {
+  showImg(index=0) {
     const img = new Image();
     img.src = this.imgs[index];
     img.className="images"

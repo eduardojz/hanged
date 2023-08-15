@@ -8,30 +8,15 @@
   </head>
   <body>
     <div id="mainContainer">
-      <div id="hanged">
-        <div id="dummy"></div>
-        <div id="container">
-          <div id="counter">0</div>
-        </div>
+      <form>
+        <fieldset>
+          <legend>Player</legend>
+          <label for="name">Digit your name</label>
+          <input type="text" id="name" placeholder="name">
+          <button type="submit">Start game</button>
+        </fieldset>
+      </form>
       </div>
-      <!--xx-->
-      <div class="container">
-        <button onclick="window.modal1.showModal();">
-          Abrir ventana modal
-        </button>
-        <dialog id="modal1">
-            <form>
-                <fieldset>
-                  <legend>End Game</legend>
-              
-                  <label for="name">Name</label>
-                  <input type="input" id="name"  placeholder="Digit your name" />
-                </fieldset>
-              </form>
-          <button onclick="window.modal1.close();">Cerrar</button>
-        </dialog>
-      </div>
-      <!--xx-->
     </div>
     <script type="module" src="../src/index.js"></script>
   </body>
