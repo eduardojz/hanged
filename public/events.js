@@ -9,14 +9,17 @@ function clickEvent(e) {
   if (word.includes(e.target.textContent)) {
     e.target.className = "correct";
     if (validate) {
-       console.log(resultC.showResult(true))
+       resultC.showResult()
     }
   } else {
     e.target.className = "incorrect";
     resultC.errorCounter();
     if (resultC.incorrects>=7) {
-      console.log(resultC.showResult(false))
+      resultC.showResult()
     }
   }
 }
-export default clickEvent;
+function restart(){
+hang.startGame()
+}
+export  {clickEvent,restart};

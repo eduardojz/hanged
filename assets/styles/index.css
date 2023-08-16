@@ -14,26 +14,42 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    flex-direction: row;
     height: auto;
+    background-color: black;
 }
 #counter{
+  background-color: blue;
 height: 100px;
 width: 100px;
 border-radius: 50px;
 }
 #container{
+  background-color: red;
     display: flex;
     flex-wrap: wrap;
     word-wrap: break-word;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 60%;
+    width: 40%;
 }
 #dummy{
     height:auto;
     width: 100px;
-    background-color: aliceblue;
+    background-color: blue;
+}
+#cronometro{
+  background-color: red;
+  width: 10%;
+  height: 10%;
+  border-radius: 50px;
+
+}
+#pokemon{
+  background-color: #321c3b;
+  height:auto;
+  width: 100px;
 }
 #answers{
     margin: 5px;

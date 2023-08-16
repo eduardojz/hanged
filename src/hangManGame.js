@@ -1,25 +1,32 @@
-// checkIfPlayerWon() y checkIfPlayerLost: Funciones encargadas de verificar si el jugador ya ganó o perdió.
 import panel from "../public/classes/panel.js";
 import keyBoard from "../public/classes/keyboard.js";
+import pokemon from "./api.js";
 class hangManGame {
-  constructor() {
-    //this.words =["comer","salir","dormir","bailar","jugar","programar"];
-    this.words =["comer"];
+  constructor() { 
     this.divs = [];
     this.game = `<div id="hanged">
     <div id="dummy"></div>
+    <div id="cronometro"></div>
+    <div id="pokemon"></div>
     <div id="container">
     <h1>Incorrect Counter <span id="counter">0</span>/7 </h1>
+    <div><h1>Score <span id="score">0</span></h1></div>
     </div>`;
   }
-  initializeDispalyedWord() {
-    let id=Math.floor(Math.random() * this.words.length);
-    localStorage.setItem("word",this.words[id])
-    return this.words[id];
+  async initializeDispalyedWord() {
+    const pokemons= new pokemon();
+    let id=Math.floor(Math.random() * 200);
+    const data=await pokemons.getpokemons(id)
+    const name=data.forms[0].name
+    const img=data.sprites.other["official-artwork"]["front_default"]
+    document.querySelector("#pokemon");
+    console.log(data.sprites.other["official-artwork"]["front_default"]);
+    localStorage.setItem("word",name)
+    return name;
   }
-  startGame() {
+  async startGame() {
     const board = new keyBoard();
-    const panelLetters = new panel(this.initializeDispalyedWord());
+    const panelLetters = new panel(await this.initializeDispalyedWord());
     const container = document.querySelector("#mainContainer");
     container.innerHTML = "";
     container.innerHTML = this.game;

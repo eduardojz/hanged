@@ -1,4 +1,5 @@
  import bodyParts from "./bodyParts.js";
+ import { restart } from "../public/events.js";
 class result {
   constructor(state,word) {
     this.state = state;
@@ -7,6 +8,9 @@ class result {
   }
   showResult() {
     const keyboard=document.querySelector("#keyboard");
+    const retryBtn=document.createElement("button");
+    retryBtn.textContent="Retry again"
+    retryBtn.addEventListener("click",restart)
     const div=document.createElement("div");
     div.className="alertState";
     let text="";
@@ -16,6 +20,7 @@ class result {
       text="You win, the secret word was :" + this.word;
     }
       div.textContent=text;
+      div.appendChild(retryBtn)
       keyboard.innerHTML=""
       keyboard.appendChild(div)
   }
