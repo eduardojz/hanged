@@ -2,11 +2,14 @@ import panel from "../public/classes/panel.js";
 import keyBoard from "../public/classes/keyboard.js";
 import pokemon from "./api.js";
 class hangManGame {
-  constructor() { 
+  constructor() {
     this.divs = [];
     this.game = `<div id="hanged">
     <div id="dummy"></div>
-    <div id="cronometro"></div>
+    <div id="showClue">    
+    <div id="cronometro">2:00</div>
+    <button class="showBtn" role="button"><span class="text">Show hint</span><span>-20 points</span></button>
+    </div>
     <div id="pokemon"></div>
     <div id="container">
     <h1>Incorrect Counter <span id="counter">0</span>/7 </h1>
@@ -14,24 +17,44 @@ class hangManGame {
     </div>`;
   }
   async initializeDispalyedWord() {
-    const pokemons= new pokemon();
-    let id=Math.floor(Math.random() * 200);
-    const data=await pokemons.getpokemons(id)
-    const name=data.forms[0].name
-    const img=data.sprites.other["official-artwork"]["front_default"]
-    document.querySelector("#pokemon");
-    console.log(data.sprites.other["official-artwork"]["front_default"]);
-    localStorage.setItem("word",name)
+    this.timer();
+    const pokemons = new pokemon();
+    let id = Math.floor(Math.random() * 200);
+    const data = await pokemons.getpokemons(id);
+    const name = data.forms[0].name;
+    const imgPokemon = data.sprites.other["official-artwork"]["front_default"];
+    localStorage.setItem("word", name);
+    localStorage.setItem("pokemonImg", imgPokemon);
     return name;
   }
   async startGame() {
+    localStorage.setItem("hints", 0); //guardar cantidad de intentos
     const board = new keyBoard();
     const panelLetters = new panel(await this.initializeDispalyedWord());
     const container = document.querySelector("#mainContainer");
     container.innerHTML = "";
     container.innerHTML = this.game;
     container.appendChild(board.createKeyboard());
-    container.querySelector("#container").appendChild(panelLetters.createPanel());
+    container
+      .querySelector("#container")
+      .appendChild(panelLetters.createPanel());
+    //
+    const divPokemon = container.querySelector("#pokemon");
+    const img = new Image();
+    img.src = localStorage.getItem("pokemonImg");
+    img.className = "hide";
+    divPokemon.appendChild(img);
+    //show
+    container.querySelector(".showBtn").addEventListener("click", () => {
+      let hints = parseInt(localStorage.getItem("hints"));
+      if (hints < 1) {
+        img.className = "pokemonImg";
+        hints++;
+        localStorage.setItem("hints", hints);
+      } else {
+        alert("No se permiten mas ayudas");
+      }
+    });
   }
   checkletter(targetText, word) {
     let validate = false;
@@ -41,7 +64,7 @@ class hangManGame {
       if (word[i] === targetText) {
         divs[i].textContent = targetText;
       }
-    } 
+    }
     for (let i = 0; i < divs.length; i++) {
       divs[i].textContent !== "_" ? (validate = true) : (validate = false);
       if (!validate) {
@@ -56,6 +79,22 @@ class hangManGame {
   }
   getStatus() {
     return this.divs;
+  }
+  timer() {
+    let seconds = 59;
+    let minutes = 1;
+    let id = setInterval(function () {
+      console.log(`${minutes}:${seconds}`);
+      if (seconds === 0) {
+        seconds = 59;
+        minutes--;
+      }
+      seconds--;
+      if (minutes < 0) {
+        alert("game finished")
+        clearInterval(id);
+      }
+    }, 1000);
   }
 }
 export default hangManGame;

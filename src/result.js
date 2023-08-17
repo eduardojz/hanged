@@ -7,6 +7,8 @@ class result {
     this.word=word;
   }
   showResult() {
+    const pokemonImg=document.querySelector("#pokemon img");
+    pokemonImg.className="show"
     const keyboard=document.querySelector("#keyboard");
     const retryBtn=document.createElement("button");
     retryBtn.textContent="Retry again"
