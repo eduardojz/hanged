@@ -21,6 +21,9 @@ class result {
     }else{
       text="You win, the secret word was :" + this.word;
     }
+    if (this.state==="timeout") {
+      text="The time is out,you lost, the secret word was :" +this.word;
+    }
       div.textContent=text;
       div.appendChild(retryBtn)
       keyboard.innerHTML=""

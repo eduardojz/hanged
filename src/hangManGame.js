@@ -1,10 +1,14 @@
 import panel from "../public/classes/panel.js";
 import keyBoard from "../public/classes/keyboard.js";
 import pokemon from "./api.js";
+import result from "./result.js";
+const container = document.querySelector("#mainContainer");
 class hangManGame {
   constructor() {
     this.divs = [];
-    this.game = `<div id="hanged">
+    this.game = `
+    
+    <div id="hanged">
     <div id="dummy"></div>
     <div id="showClue">    
     <div id="cronometro">2:00</div>
@@ -17,7 +21,6 @@ class hangManGame {
     </div>`;
   }
   async initializeDispalyedWord() {
-    this.timer();
     const pokemons = new pokemon();
     let id = Math.floor(Math.random() * 200);
     const data = await pokemons.getpokemons(id);
@@ -25,19 +28,17 @@ class hangManGame {
     const imgPokemon = data.sprites.other["official-artwork"]["front_default"];
     localStorage.setItem("word", name);
     localStorage.setItem("pokemonImg", imgPokemon);
+    console.log(name);
     return name;
   }
   async startGame() {
     localStorage.setItem("hints", 0); //guardar cantidad de intentos
     const board = new keyBoard();
     const panelLetters = new panel(await this.initializeDispalyedWord());
-    const container = document.querySelector("#mainContainer");
     container.innerHTML = "";
     container.innerHTML = this.game;
     container.appendChild(board.createKeyboard());
-    container
-      .querySelector("#container")
-      .appendChild(panelLetters.createPanel());
+    container.querySelector("#container").appendChild(panelLetters.createPanel());
     //
     const divPokemon = container.querySelector("#pokemon");
     const img = new Image();
@@ -46,6 +47,8 @@ class hangManGame {
     divPokemon.appendChild(img);
     //show
     container.querySelector(".showBtn").addEventListener("click", () => {
+      const score=document.querySelector("#score");
+      score.textContent=parseInt(score.textContent)-20
       let hints = parseInt(localStorage.getItem("hints"));
       if (hints < 1) {
         img.className = "pokemonImg";
@@ -55,6 +58,7 @@ class hangManGame {
         alert("No se permiten mas ayudas");
       }
     });
+    this.timer()
   }
   checkletter(targetText, word) {
     let validate = false;
@@ -81,19 +85,21 @@ class hangManGame {
     return this.divs;
   }
   timer() {
+    const resultC=new result("timeout",localStorage.getItem("word"));
     let seconds = 59;
     let minutes = 1;
     let id = setInterval(function () {
-      console.log(`${minutes}:${seconds}`);
+      container.querySelector('#cronometro').textContent=`${minutes}:${seconds}`
       if (seconds === 0) {
         seconds = 59;
         minutes--;
       }
-      seconds--;
       if (minutes < 0) {
+        resultC.showResult()
         alert("game finished")
         clearInterval(id);
       }
+      seconds--;
     }, 1000);
   }
 }

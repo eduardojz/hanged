@@ -1,6 +1,6 @@
 #mainContainer{
     width: 100%;
-    height: 500px;
+    height: 600px;
     padding: 5px;
     display: flex;
     flex-direction: column;
@@ -15,16 +15,13 @@
     justify-content: space-between;
     flex-direction: row;
     height: auto;
-    background-color: black;
 }
 #counter{
-background-color: blue;
 height: 100px;
 width: 100px;
 border-radius: 50px;
 }
 #container{
-  background-color: red;
     display: flex;
     flex-wrap: wrap;
     word-wrap: break-word;
@@ -35,7 +32,6 @@ border-radius: 50px;
 #dummy{
     height:auto;
     width: 100px;
-    background-color: blue;
 }
 #showClue{
   margin: auto;
@@ -54,7 +50,6 @@ border-radius: 50px;
   background-color: aqua;
 }
 #pokemon{
-  background-color: #321c3b;
   height:auto;
   width: 20%;
 }
